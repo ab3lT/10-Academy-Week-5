@@ -1,11 +1,15 @@
 import os
 import csv
 from dotenv import load_dotenv
+load_dotenv('../.env')
+
 from telethon import TelegramClient
-from logger import Logger  # Import the logger class
+import logging 
+# from logger import logger  # Import the logger class
+# print(f"API ID: {api_id}, API Hash: {api_hash}")
 
 # Load environment variables
-load_dotenv()
+# load_dotenv()
 
 class TelegramChannelScraper:
     """
@@ -37,13 +41,17 @@ class TelegramChannelScraper:
         self.media_dir = media_dir
         self.csv_file = csv_file
         self.channels = channels or []
-        
-        # Initialize the logger with a dynamic log file path
-        self.logger = Logger(log_file=log_file)
+
+        # Configure the logger
+        logging.basicConfig(
+            filename=log_file,
+            level=logging.INFO,
+            format='%(asctime)s - %(levelname)s - %(message)s',
+        )
+        self.logger = logging.getLogger(__name__)  # Use __name__ to identify the logger
 
         # Create media directory
         os.makedirs(self.media_dir, exist_ok=True)
-
     async def scrape_channel(self, client, channel_username, writer):
         """
         Scrapes all messages from a single channel and writes to the CSV file.
@@ -114,9 +122,16 @@ class TelegramChannelScraper:
                     await self.scrape_channel(client, channel, writer)
 
 if __name__ == "__main__":
+    load_dotenv('../.env')
+
     # Get credentials from .env
     api_id = os.getenv('api_id')
     api_hash = os.getenv('api_hash')
+    # api_id = os.getenv('api_id')
+    # api_hash = os.getenv('api_hash')
+    print(f"API ID: {api_id}, API Hash: {api_hash}")
+    # Print API credentials
+    print(f"API ID: {api_id}, API Hash: {api_hash}")
 
     # Validate API credentials
     if not api_id or not api_hash:
@@ -124,7 +139,7 @@ if __name__ == "__main__":
 
     # List of channels to scrape
     channels_to_scrape = [
-        '@lobelia4cosmetics',
+        '@ZemenExpress',
         # Add more channels as needed
     ]
 
