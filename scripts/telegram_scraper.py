@@ -140,7 +140,10 @@ if __name__ == "__main__":
     # List of channels to scrape
     channels_to_scrape = [
         '@ZemenExpress',
-        # Add more channels as needed
+        '@nevacomputer',
+        '@qnashcom',
+        '@AwasMart',
+        '@aradabrand2',
     ]
 
     # Specify the log file path dynamically
